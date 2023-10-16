@@ -1,0 +1,54 @@
+{% extends 'redditapp/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <!-- Introduction Section -->
+    <div>
+        <h1>Welcome to the NS Sentiment Analysis Dashboard</h1>
+        <p>
+            This project is designed to uncover the sentiments of individuals serving National Service (NS) in Singapore, 
+            as reflected in the discussions happening in the r/NationalServiceSG subreddit. Through scraping Reddit posts, 
+            we apply data analysis techniques to understand the emotional tones underlying the shared experiences of servicemen.
+        </p>
+        <h2>Project Overview:</h2>
+        <ul>
+            <li><strong>Background:</strong> Reddit Scraping of r/NationalServiceSG to understand sentiments of individuals in NS.</li>
+            <li><strong>Data Collection:</strong> Current top 100 hot posts in r/NationalServiceSG.</li>
+            <li><strong>Data Analysis:</strong> Sentiment Analysis using NLTK (Positive, Neutral, Negative) and Word Frequencies of posts.</li>
+            <li><strong>Data Visualisation:</strong> Featuring a Word Frequency Chart and a Word Cloud representing common themes.</li>
+            <li><strong>Make a Suggestion:</strong> Find this interesting? Make a suggestion on how I can improve this site at the bottom of the page.</li>
+        </ul>
+    </div>
+
+    <!-- Analysis Section -->
+    <div>
+        <h2>Analysis Results</h2>
+        <h3>Average Sentiment Score: {{ avg_sentiment }}</h3>
+        <img src="{% static image_path %}" alt="Word Frequencies" style="max-width: 100%; height: auto;">
+    </div>
+
+    <!-- Additional Results Section -->
+    <div>
+        <h2>Word Cloud</h2>
+        <img src="{% static wordcloud_image_path %}" alt="Word Cloud" style="max-width: 100%; height: auto;">
+    </div>
+
+    <!-- Suggestion Section -->
+    <div>
+        <h2>Suggest a Feature</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+
+        <h3>Existing Suggestions:</h3>
+        <ul>
+            {% for suggestion in suggestions %}
+                <li>{{ suggestion.text }} - {{ suggestion.created_at|date:"d M Y" }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}
