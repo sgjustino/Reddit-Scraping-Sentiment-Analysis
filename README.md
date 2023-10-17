@@ -1,10 +1,12 @@
 # Reddit Analysis Project
 
-This Django-based application scrapes and analyzes data from a specific subreddit, presenting insights through textual analysis and visual representation.
+This project seeks to understand the sentiments of Singaporeans serving National Service (NS) in Singapore, through the discussions in the r/NationalServiceSG subreddit. It is an initial MVP intended to assist policy makers and defence executives in decision-making and policies formulation. By scraping Reddit posts in the subreddit, a simple word frequency chart and word cloud is used to analysis and visualise their sentiments. This MVP drives the potential to deep dive into our National Service men’ sentiments through future analysis capabilities.
+
+![Alt text](<Web Architecture.jpg>)
 
 ## Requirements
 
-Ensure Python 3.7 or higher is installed on your system. Install the required libraries using:
+Ensure Python 3.10 or higher is installed on your system. Install the required libraries using:
 
 ```bash
 pip install -r requirements.txt
@@ -48,3 +50,8 @@ python manage.py runserver
 
 Access the web application by navigating to [http://localhost:8000/](http://localhost:8000/) in your web browser.
 ```
+
+## CI/CD Integration
+
+Direct integration via Github Actions
+
