@@ -6,7 +6,7 @@ from datetime import datetime
 from django.utils import timezone
 
 class Command(BaseCommand):
-    help = "Scrape data from the NationalServiceSG subreddit and keep only the latest top 100 hot posts."
+    help = "Scrape data from NationalServiceSG subreddit and keep only latest top 100 hot posts."
 
     def handle(self, *args, **kwargs):
         self.stdout.write("Starting scraping...")
@@ -18,24 +18,24 @@ class Command(BaseCommand):
             user_agent=settings.REDDIT_USER_AGENT
         )
 
-        # Accessing the subreddit 'NationalServiceSG'.
+        # Accessing subreddit 'NationalServiceSG'.
         subreddit = reddit.subreddit('NationalServiceSG')
 
-        # Delete the old posts in the database to maintain only the latest scraped posts.
-        # to avoid duplication and keep the database up to date with the latest subreddit state.
+        # Delete old posts in database to maintain only latest scraped posts.
+        # Avoid duplication and keep database up to date with  latest subreddit state.
         self.stdout.write("Deleting old posts...")
         Post.objects.all().delete()
 
-        # Scrape the top 100 hot posts from the subreddit.
+        # Scrape top 100 hot posts from subreddit.
         for submission in subreddit.hot(limit=100):
-            # Convert the submission timestamp to a timezone-aware datetime object.
+            # Convert submission timestamp to a timezone-aware datetime object.
             date_posted_dt = datetime.utcfromtimestamp(submission.created_utc)
             date_posted_dt = timezone.make_aware(date_posted_dt)
 
-            # Create a new Post object and save it to the database.
-            # Each Post includes the title, content, and the posting date.
+            # Create a new Post object and save it to database.
+            # Each Post includes title, content, and posting date.
             post = Post(title=submission.title, content=submission.selftext, date_posted=date_posted_dt)
             post.save()
 
-        # Confirm the completion of the scraping process.
+        # Confirm completion of scraping process.
         self.stdout.write("Scraping completed.")

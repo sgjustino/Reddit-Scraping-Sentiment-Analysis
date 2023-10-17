@@ -1,28 +1,24 @@
-# Standard library imports.
 import os
 
-# Third-party imports.
 import matplotlib
-matplotlib.use('Agg')  # Non-interactive backend for matplotlib.
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-# Django imports.
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
 
-# Local application imports.
 from .models import Post, Suggestion
 from .analysis import get_word_frequencies, compute_sentiment, create_word_cloud
 from .forms import SuggestionForm
 
 def plot_word_frequencies(frequencies, top_n=20):
     """
-    Plot the most frequent words from the posts.
+    Plot most frequent words from posts.
 
-    :param frequencies: Word frequencies from the posts' content.
-    :param top_n: The number of top frequent words to consider.
-    :return: Relative path to the saved plot image.
+    :param frequencies: Word frequencies from posts' content.
+    :param top_n: Number of top frequent words to consider.
+    :return: Relative path to saved plot image.
     """
     # Return if no word frequencies are provided.
     if not frequencies:
@@ -32,14 +28,14 @@ def plot_word_frequencies(frequencies, top_n=20):
     most_common = frequencies.most_common(min(len(frequencies), top_n))
     words, counts = zip(*most_common)
 
-    # Create the horizontal bar plot.
+    # Create horizontal bar plot.
     plt.figure(figsize=(15, 10))
     plt.barh(words, counts, color='skyblue')
     plt.xlabel('Counts')
     plt.title('Top 20 Most Common Words in r/NationalServiceSG')
     plt.gca().invert_yaxis()
 
-    # Save the plot as an image file.
+    # Save plot as an image file.
     img_path = os.path.join(settings.BASE_DIR, 'redditapp/static/redditapp/img/word_freq.png')
     plt.savefig(img_path)
     plt.close()
@@ -48,33 +44,33 @@ def plot_word_frequencies(frequencies, top_n=20):
 
 def dashboard_view(request):
     """
-    Handle the logic for the dashboard view.
+    Handle logic for dashboard view.
 
     :param request: HttpRequest object.
     :return: HttpResponse object.
     """
-    # Fetch all the posts from the database.
+    # Fetch all posts from database.
     posts = Post.objects.all()
 
-    # Inform the user if no posts are available.
+    # Inform user if no posts are available.
     if not posts:
         messages.info(request, 'No posts available for analysis.')
         return render(request, 'redditapp/dashboard.html')
 
-    # Analyze the word frequencies in the posts' content.
+    # Analyze word frequencies in posts' content.
     frequencies = get_word_frequencies(posts)
 
-    # Attempt to generate visual representations of the data.
+    # Attempt to generate visual representations of data.
     try:
         image_path = plot_word_frequencies(frequencies)
         wordcloud_image_path = create_word_cloud(frequencies)
     except Exception as e:
-        # Handle any errors during the generation.
+        # Handle any errors during generation.
         messages.error(request, f'An error occurred during analysis: {e}')
         image_path = None
         wordcloud_image_path = None
 
-    # Verify the existence of the generated images.
+    # Verify existence of generated images.
     if not os.path.exists(os.path.join(settings.BASE_DIR, 'redditapp/static/', image_path or '')):
         image_path = None
         messages.info(request, 'Not enough data to generate frequency plot.')
@@ -83,7 +79,7 @@ def dashboard_view(request):
         wordcloud_image_path = None
         messages.info(request, 'Not enough data to generate word cloud.')
 
-    # Compute the average sentiment of the posts.
+    # Compute average sentiment of the posts.
     avg_sentiment = compute_sentiment(posts)
 
     # Handle the suggestion form submission.
@@ -92,7 +88,7 @@ def dashboard_view(request):
         if suggestion_form.is_valid():
             suggestion_form.save()
             messages.success(request, 'Thank you for your suggestion!')
-            return redirect('dashboard')  # Redirecting to the dashboard view.
+            return redirect('dashboard')  # Redirecting to dashboard view.
     else:
         suggestion_form = SuggestionForm()
 
@@ -108,5 +104,5 @@ def dashboard_view(request):
         'form': suggestion_form,  # Suggestion form.
     }
 
-    # Render the dashboard with the prepared context.
+    # Render dashboard with the prepared context.
     return render(request, 'redditapp/dashboard.html', context)
