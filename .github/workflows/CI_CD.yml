@@ -31,11 +31,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Export .env to environment variables
+    - name: Set environment variables
       run: |
-        set -a
-        source .env
-        set +a
+        echo "PYTHONANYWHERE_HOST=$(grep -oP 'PYTHONANYWHERE_HOST=\K.*' .env)" >> $GITHUB_ENV
+        echo "PYTHONANYWHERE_USERNAME=$(grep -oP 'PYTHONANYWHERE_USERNAME=\K.*' .env)" >> $GITHUB_ENV
+        echo "PYTHONANYWHERE_PASSWORD=$(grep -oP 'PYTHONANYWHERE_PASSWORD=\K.*' .env)" >> $GITHUB_ENV
 
     - name: Deploy to PythonAnywhere
       uses: appleboy/ssh-action@master
