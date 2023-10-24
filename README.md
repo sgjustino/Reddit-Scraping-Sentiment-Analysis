@@ -66,6 +66,7 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 
 ### Data collection
 *Praw Library is utilised as a reddit api wrapper to scrape data from the subreddit r/NationalServiceNS
+
 /redditapp/management/commands/scrape_reddit.py
 
 ### Data analyzer
@@ -113,14 +114,17 @@ Integration tests is found in test_integration.py
 python manage.py test
 ```
 All tests are found in /redditapp/tests/
+
 Mock objects are used in test_analysis.py
 
 ### CI/CD Integration
 *Continuous integration (push/build) and deployment (deploy) via Github Actions workflow
+
 /.github/workflows/CI_CD.yml
 
 ### Production monitoring instrumenting
 *Monitoring via PythonAnywhere Always-On Task running health.py
+
 /redditapp/monitoring/health.py
 
 ![Alt text](<Health Monitoring Task.jpg>)
@@ -128,6 +132,7 @@ Mock objects are used in test_analysis.py
 ### Event collaboration messaging
 *Daily Scheduler for web scraping via PythonAnywhere Scheduled Task running scrape_reddit.py
 *No need for per-user request as the hot topic posts in the subreddit will not fluctuate much below a 24-hour cycle.
+
 /redditapp/management/commands/scrape_reddit.py
 
 ![Alt text](<Scraping Task.jpg>)
