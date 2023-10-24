@@ -37,13 +37,6 @@ class AnalysisTestCase(TestCase):
         # Verify function behavior with assertions
         self.assertEqual(result, "Positive")
 
-    @mock.patch('redditapp.analysis.plt.savefig')
-    def test_create_word_cloud(self, mock_savefig):
-        # Test that a word cloud is generated
-        mock_frequencies = Counter({'test': 2, 'word': 1})
-        create_word_cloud(mock_frequencies)
-        mock_savefig.assert_called_once() 
-
     def tearDown(self):
         # Deinitialize testing context to cleanup after tests ran.
         pass

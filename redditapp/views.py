@@ -15,10 +15,6 @@ from .forms import SuggestionForm
 def plot_word_frequencies(frequencies, top_n=20):
     """
     Plot most frequent words from posts.
-
-    :param frequencies: Word frequencies from posts' content.
-    :param top_n: Number of top frequent words to consider.
-    :return: Relative path to saved plot image.
     """
     # Return if no word frequencies are provided.
     if not frequencies:
@@ -45,9 +41,6 @@ def plot_word_frequencies(frequencies, top_n=20):
 def dashboard_view(request):
     """
     Handle logic for dashboard view.
-
-    :param request: HttpRequest object.
-    :return: HttpResponse object.
     """
     # Fetch all posts from database.
     posts = Post.objects.all()
