@@ -65,7 +65,7 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 * Reporting via Analysis Charts
 
 ### Data collection
-*Praw Library is utilised as a reddit api wrapper to scrape data from the subreddit r/NationalServiceNS
+* Praw Library is utilised as a reddit api wrapper to scrape data from the subreddit r/NationalServiceNS
 
 /redditapp/management/commands/scrape_reddit.py
 
@@ -95,27 +95,27 @@ python manage.py test
 /db.sqlite3
 
 ### Rest collaboration internal or API endpoint
-API endpoint: Reddit API for Data collection via PRAW wrapper
+* API endpoint: Reddit API for Data collection via PRAW wrapper
+
 /redditapp/management/commands/scrape_reddit.py
 
 ### Product environment
-PythonAnywhere virtualenv is used to host the web application.
-Folder is also containerized via Docker although static images are wired for production on PythonAnywhere (does not support Docker).
+* PythonAnywhere virtualenv is used to host the web application.
+* Folder is also containerized via Docker although static images are wired for production on PythonAnywhere (does not support Docker).
 
 ### Integration tests
 ```bash
 python manage.py test
 ```
-All tests are found in /redditapp/tests/
-Integration tests is found in test_integration.py
+
+* Integration tests is found in test_integration.py
 
 ### Using mock objects or any test doubles
 ```bash
 python manage.py test
 ```
-All tests are found in /redditapp/tests/
 
-Mock objects are used in test_analysis.py
+* Mock objects are used in test_analysis.py
 
 ### CI/CD Integration
 * Continuous integration (push/build) and deployment (deploy) via Github Actions workflow
