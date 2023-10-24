@@ -58,11 +58,11 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 ## Rubric Assessment
 
 ### Web application basic form, reporting
-*Web App on [http://sgjustino.pythonanywhere.com/]
+* Web App on [http://sgjustino.pythonanywhere.com/]
 
-*Suggestion Form at the bottom of the page
+* Suggestion Form at the bottom of the page
 
-*Reporting via Analysis Charts
+* Reporting via Analysis Charts
 
 ### Data collection
 *Praw Library is utilised as a reddit api wrapper to scrape data from the subreddit r/NationalServiceNS
@@ -70,13 +70,13 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 /redditapp/management/commands/scrape_reddit.py
 
 ### Data analyzer
-*Data Cleaning: The Natural Language Toolkit (NLTK) is used to clean, transform, and tokenize the raw post data, preparing it for further analysis.
+* Data Cleaning: The Natural Language Toolkit (NLTK) is used to clean, transform, and tokenize the raw post data, preparing it for further analysis.
 
-*Sentiment Analysis: The Vader Sentiment Analysis tool is used to interpret posts and categorise them as positive, neutral, or negative.
+* Sentiment Analysis: The Vader Sentiment Analysis tool is used to interpret posts and categorise them as positive, neutral, or negative.
 
-*Word Frequency Chart: The NLTK's frequency distribution is used to visualize the most common terms in the posts based on word frequency.
+* Word Frequency Chart: The NLTK's frequency distribution is used to visualize the most common terms in the posts based on word frequency.
 
-*Word Cloud: A word cloud is generated with Matplotlib based on word frequency.
+* Word Cloud: A word cloud is generated with Matplotlib based on word frequency.
 
 /redditapp/analysis.py
 
@@ -84,13 +84,13 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 ```bash
 python manage.py test
 ```
-*Unit tests include test_analysis.py, test_models.py and test_views.py
+* Unit tests include test_analysis.py, test_models.py and test_views.py
 /redditapp/tests/
 
 ![Alt text](<Test Results.jpg>)
 
 ### Data persistence any data store
-*Data stored in SQLite db due to relative small and uncomplicated data
+* Data stored in SQLite db due to relative small and uncomplicated data
 
 /db.sqlite3
 
@@ -118,20 +118,20 @@ All tests are found in /redditapp/tests/
 Mock objects are used in test_analysis.py
 
 ### CI/CD Integration
-*Continuous integration (push/build) and deployment (deploy) via Github Actions workflow
+* Continuous integration (push/build) and deployment (deploy) via Github Actions workflow
 
 /.github/workflows/CI_CD.yml
 
 ### Production monitoring instrumenting
-*Monitoring via PythonAnywhere Always-On Task running health.py
+* Monitoring via PythonAnywhere Always-On Task running health.py
 
 /redditapp/monitoring/health.py
 
 ![Alt text](<Health Monitoring Task.jpg>)
 
 ### Event collaboration messaging
-*Daily Scheduler for web scraping via PythonAnywhere Scheduled Task running scrape_reddit.py
-*No need for per-user request as the hot topic posts in the subreddit will not fluctuate much below a 24-hour cycle.
+* Daily Scheduler for web scraping via PythonAnywhere Scheduled Task running scrape_reddit.py
+* No need for per-user request as the hot topic posts in the subreddit will not fluctuate much below a 24-hour cycle.
 
 /redditapp/management/commands/scrape_reddit.py
 
