@@ -37,14 +37,14 @@ jobs:
         echo "PYTHONANYWHERE_USERNAME=$(grep -oP 'PYTHONANYWHERE_USERNAME=\K.*' .env)" >> $GITHUB_ENV
         echo "PYTHONANYWHERE_PASSWORD=$(grep -oP 'PYTHONANYWHERE_PASSWORD=\K.*' .env)" >> $GITHUB_ENV
 
-    - name: SFTP files to PythonAnywhere
-      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+    - name: Deploy to PythonAnywhere via SFTP
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
-        server: ${{ env.PYTHONANYWHERE_HOST }}
         username: ${{ env.PYTHONANYWHERE_USERNAME }}
         password: ${{ env.PYTHONANYWHERE_PASSWORD }}
-        local-dir: ./
-        server-dir: /home/sgjustino/redditproject/
+        server: ${{ env.PYTHONANYWHERE_HOST }}
+        localPath: './'
+        remotePath: '/home/sgjustino/redditproject'
 
     - name: Execute remote SSH commands
       uses: appleboy/ssh-action@master
