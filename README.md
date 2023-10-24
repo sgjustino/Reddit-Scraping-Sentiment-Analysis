@@ -59,7 +59,9 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 
 ### Web application basic form, reporting
 *Web App on [http://sgjustino.pythonanywhere.com/]
+
 *Suggestion Form at the bottom of the page
+
 *Reporting via Analysis Charts
 
 ### Data collection
@@ -83,10 +85,12 @@ python manage.py test
 ```
 *Unit tests include test_analysis.py, test_models.py and test_views.py
 /redditapp/tests/
+
 ![Alt text](<Test Results.jpg>)
 
 ### Data persistence any data store
 *Data stored in SQLite db due to relative small and uncomplicated data
+
 /db.sqlite3
 
 ### Rest collaboration internal or API endpoint
@@ -118,10 +122,12 @@ Mock objects are used in test_analysis.py
 ### Production monitoring instrumenting
 *Monitoring via PythonAnywhere Always-On Task running health.py
 /redditapp/monitoring/health.py
+
 ![Alt text](<Health Monitoring Task.jpg>)
 
 ### Event collaboration messaging
 *Daily Scheduler for web scraping via PythonAnywhere Scheduled Task running scrape_reddit.py
 *No need for per-user request as the hot topic posts in the subreddit will not fluctuate much below a 24-hour cycle.
 /redditapp/management/commands/scrape_reddit.py
+
 ![Alt text](<Scraping Task.jpg>)
