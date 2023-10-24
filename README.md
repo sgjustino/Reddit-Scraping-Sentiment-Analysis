@@ -95,7 +95,7 @@ API endpoint: Reddit API for Data collection via PRAW wrapper
 
 ### Product environment
 PythonAnywhere virtualenv is used to host the web application.
-Folder is also containerized via Docker although static images are wired for production on PythonAnywhere.
+Folder is also containerized via Docker although static images are wired for production on PythonAnywhere (does not support Docker).
 
 ### Integration tests
 ```bash
@@ -112,13 +112,16 @@ All tests are found in /redditapp/tests/
 Mock objects are used in test_analysis.py
 
 ### CI/CD Integration
-*Direct integration via Github Actions
+*Continuous integration (push/build) and deployment (deploy) via Github Actions workflow
+/.github/workflows/CI_CD.yml
 
 ### Production monitoring instrumenting
 *Monitoring via PythonAnywhere Always-On Task running health.py
 /redditapp/monitoring/health.py
+![Alt text](<Health Monitoring Task.jpg>)
 
 ### Event collaboration messaging
 *Daily Scheduler for web scraping via PythonAnywhere Scheduled Task running scrape_reddit.py
 *No need for per-user request as the hot topic posts in the subreddit will not fluctuate much below a 24-hour cycle.
 /redditapp/management/commands/scrape_reddit.py
+![Alt text](<Scraping Task.jpg>)
