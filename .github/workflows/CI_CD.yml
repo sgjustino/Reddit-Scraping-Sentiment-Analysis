@@ -31,13 +31,22 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set environment variables
+    - name: Set environment variables from .env file
       run: |
         echo "PYTHONANYWHERE_HOST=$(grep -oP 'PYTHONANYWHERE_HOST=\K.*' .env)" >> $GITHUB_ENV
         echo "PYTHONANYWHERE_USERNAME=$(grep -oP 'PYTHONANYWHERE_USERNAME=\K.*' .env)" >> $GITHUB_ENV
         echo "PYTHONANYWHERE_PASSWORD=$(grep -oP 'PYTHONANYWHERE_PASSWORD=\K.*' .env)" >> $GITHUB_ENV
 
-    - name: Deploy to PythonAnywhere
+    - name: SFTP files to PythonAnywhere
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
+      with:
+        server: ${{ env.PYTHONANYWHERE_HOST }}
+        username: ${{ env.PYTHONANYWHERE_USERNAME }}
+        password: ${{ env.PYTHONANYWHERE_PASSWORD }}
+        local-dir: ./
+        server-dir: /home/sgjustino/redditproject/
+
+    - name: Execute remote SSH commands
       uses: appleboy/ssh-action@master
       with:
         host: ${{ env.PYTHONANYWHERE_HOST }}
@@ -45,7 +54,6 @@ jobs:
         password: ${{ env.PYTHONANYWHERE_PASSWORD }}
         script: |
           cd /home/sgjustino/redditproject
-          git pull
           source myvirtualenv/bin/activate
           pip install -r requirements.txt
           python manage.py migrate
