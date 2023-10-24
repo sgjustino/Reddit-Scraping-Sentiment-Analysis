@@ -76,7 +76,7 @@ Note: The static files are served through PythonAnywhere web server. Hence, I di
 
 * Word Frequency Chart: The NLTK's frequency distribution is used to visualize the most common terms in the posts based on word frequency.
 
-* Word Cloud: A word cloud is generated with Matplotlib based on word frequency.
+* Word Cloud: A word cloud is generated with WordCloud library (ignore Web Architecture above) based on word frequency.
 
 /redditapp/analysis.py
 
